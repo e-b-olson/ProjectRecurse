@@ -18,4 +18,5 @@ Okay.  Seems simple enough.  So.  Let's do this!
 ## The TODO List
   
 - [x] Create a repo for the project
+- [x] Obtain domain ([projectrecurse.com](http://www.projectrecurse.com))
 - [ ] Decide what to do next
