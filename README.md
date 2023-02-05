@@ -9,7 +9,7 @@ This is an experiment.  The goal is to build something.  Something cool.  I don'
 ```
 0. Add an item to the TODO list
 1. Do the item on the TODO list
-3. GOTO 0
+3. Build the rest of the project
 ```
   
 Okay.  Seems simple enough.  So.  Let's do this!
