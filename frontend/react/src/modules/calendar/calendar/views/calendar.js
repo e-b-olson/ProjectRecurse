@@ -1,5 +1,5 @@
 import * as React from "react";
-import {hot} from "react-hot-loader";
+// import {hot} from "react-hot-loader";
 import "../../../../app.css";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";

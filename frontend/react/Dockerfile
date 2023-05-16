@@ -17,12 +17,15 @@ WORKDIR /home/node
 RUN apk add --no-cache --virtual .gyp \
         make \
         g++ \
-    && npm install --save-dev webpack@4.19.1 webpack-cli@3.1.1 webpack-dev-server@3.1.8 \
+    && npm install --save-dev webpack@5.82.1 webpack-cli@5.1.1 webpack-dev-server@4.0.0 @webpack-cli/serve@2.0.4 \
     && npm install --save-dev @babel/core@7.1.0 @babel/cli@7.1.0 \
     && npm install --save-dev @babel/preset-env@7.1.0 @babel/preset-react@7.0.0 \
     && npm install --save-dev @babel/plugin-proposal-class-properties \
-    && npm install --save-dev style-loader@0.23.0 css-loader@1.0.0 babel-loader@8.0.2 \
-    && npm install --save-dev react@17.0.0 react-dom@17.0.0 react-hot-loader@4.13.0 \
+    && npm install --save-dev style-loader@0.23.0 \
+    && npm install --save-dev css-loader@6.7.3 babel-loader@8.0.2 \
+    && npm install --save-dev react@17.0.0 react-dom@17.0.0 \
+    && npm install --save-dev webpack-hot-middleware@2.25.3 \
+    && npm install --save-dev @pmmmwh/react-refresh-webpack-plugin@0.5.10 react-refresh \
     && npm install react-router-dom@6.3.0 \
     && npm install --save-dev source-map-loader@1.0.0 \
     && npm install --save-dev @mui/material @emotion/react @emotion/styled \

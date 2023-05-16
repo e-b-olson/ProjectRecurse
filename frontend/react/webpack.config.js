@@ -1,17 +1,26 @@
 const path = require("path");
 const webpack = require("webpack");
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+
+const isDevelopment = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-  entry: "./src/index.js",
-  mode: "development",
+  entry: {
+    main: "./src/index.js",
+  },
+  mode: isDevelopment ? "development" : "production",
   devtool: 'inline-source-map',
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: "babel-loader",
-        options: { presets: ["@babel/env"] }
+        exclude: /node_modules/,
+	use: {  
+          loader: require.resolve("babel-loader"),
+          options: {
+	    plugins: [isDevelopment && require.resolve('react-refresh/babel')].filter(Boolean),
+	    presets: ["@babel/env"] }
+	}
       },
       {
         test: /\.css$/,
@@ -26,11 +35,20 @@ module.exports = {
     filename: "bundle.js"
   },
   devServer: {
-    contentBase: [path.join(__dirname, "public/"), path.join(__dirname, "src/")],
+    static: [
+      {
+	directory: path.join(__dirname, "public/"),
+      },
+      {
+	directory: path.join(__dirname, "src/"),
+      }  
+    ],
     port: 3000,
-    publicPath: "http://localhost:3000/dist/",
+    devMiddleware: {
+      publicPath: "http://localhost:3000/dist/",
+    },
     historyApiFallback: true,
     hot: true,
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()]
+  plugins: [isDevelopment && new ReactRefreshWebpackPlugin()].filter(Boolean),
 };

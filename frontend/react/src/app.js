@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import {hot} from "react-hot-loader";
+// import {hot} from "react-hot-loader";
 import "./app.css";
 
 import SignIn from "./modules/auth/views/sign-in";
@@ -32,4 +32,4 @@ function App() {
   );
 }
 
-export default hot(module)(App);
+export default App;
