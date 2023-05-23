@@ -61,20 +61,38 @@ function WorkbenchApp() {
   const authContext = { accessToken, setAccessToken, refreshToken, setRefreshToken };  
 
   // console.log("******************* WORKBENCH TOKEN *******************");
-  // console.log(access_token);
+  // console.log(accessToken);
 
   function signOut() {
-    authContext.setAccessToken(null);
-    authContext.setRefreshToken(null);
+    localStorage.clear();
+    sessionStorage.clear();
+    setAccessToken();
+    setRefreshToken();
   }
 
-  if(!authContext.accessToken) {
-      return (
-	  <AuthContext.Provider value={authContext}>
-	    <Authenticate />
-	  </AuthContext.Provider>
+  /*
+  function isEmpty(value) {
+    return (value == null || (typeof value === "string" && value.trim().length === 0));
+  }
+    
+  console.log("Checking access token...\n" + accessToken);
+  console.log(typeof accessToken);
+  console.log("isEmpty: " + isEmpty(accessToken));
+  console.log("is null: " + (accessToken == null));
+  console.log("is string: " + (typeof accessToken === "string"));
+  if(typeof accessToken === "string") {
+    console.log(accessToken.trim().length);
+  }
+  */
+    
+  if(!accessToken) {
+    return (
+	<AuthContext.Provider value={authContext}>
+	  <Authenticate />
+	</AuthContext.Provider>
       )
   }
+
   
   return (
     <div className="wrapper">

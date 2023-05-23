@@ -6,7 +6,7 @@ export function useAccessToken() {
     const token = tokenString;
     // const token = JSON.parse(tokenString);
     // return userToken?.token
-    if (token != null) {
+    if (token) {
         // console.log("******************* ACCESS TOKEN *******************");
         // console.log(token);
         return token;
@@ -18,7 +18,15 @@ export function useAccessToken() {
   const [access_token, setToken] = useState(getToken());
 
   const saveToken = token => {
-    sessionStorage.setItem('access_token', JSON.stringify(token));
+    // console.log("******************* SETTING ACCESS TOKEN *******************");
+    // console.log(token);
+
+    if (!token) {
+      sessionStorage.removeItem('access_token');
+    } else {
+      sessionStorage.setItem('access_token', JSON.stringify(token));
+    }
+    
     setToken(token);
   };
 
@@ -34,7 +42,7 @@ export function useRefreshToken() {
       const token = tokenString;
       // const token = JSON.parse(tokenString);
       // return userToken?.token
-      if (token != null) {
+      if (token) {
           // console.log("*******************TOKEN*******************");
           // console.log(token);
           return token;
@@ -46,7 +54,11 @@ export function useRefreshToken() {
     const [refresh_token, setToken] = useState(getToken());
   
     const saveToken = token => {
-      sessionStorage.setItem('refresh_token', JSON.stringify(refresh_token));
+      if (!token) {
+        sessionStorage.removeItem('refresh_token');
+      } else {
+	sessionStorage.setItem('refresh_token', JSON.stringify(token));
+      }	
       setToken(token);
     };
   
