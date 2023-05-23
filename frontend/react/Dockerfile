@@ -26,9 +26,10 @@ RUN apk add --no-cache --virtual .gyp \
     && npm install --save-dev react@17.0.0 react-dom@17.0.0 \
     && npm install --save-dev webpack-hot-middleware@2.25.3 \
     && npm install --save-dev @pmmmwh/react-refresh-webpack-plugin@0.5.10 react-refresh \
-    && npm install react-router-dom@6.3.0 \
+    && npm install --save-dev react-router-dom@6.3.0 \
     && npm install --save-dev source-map-loader@1.0.0 \
-    && npm install --save-dev @mui/material @emotion/react @emotion/styled \
+    && npm install --save-dev @mui/material @mui/icons-material \
+    && npm install --save-dev @emotion/react @emotion/styled \
     && npm install --save-dev bootstrap@5.2.3 react-bootstrap@2.7.4 \
     && npm install --save-dev tailwindcss@3.3.2 \
     && apk del .gyp
