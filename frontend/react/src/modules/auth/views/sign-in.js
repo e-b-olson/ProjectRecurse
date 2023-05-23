@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 async function apiSignIn(credentials) {
-  return fetch('http://localhost:8000/auth/sign-in', {
+  return fetch('http://localhost:8000/auth/sign-in/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(credentials)
+  })
+  .then((response) => {
+    if (!response.ok) throw new Error(response.status);
+    else return response;
   })
   .then(data => data.json())
 }

@@ -1,5 +1,4 @@
 import React, { Component, useState } from "react";
-// import {hot} from "react-hot-loader";
 import "./app.css";
 
 import SignIn from "./modules/auth/views/sign-in";
@@ -8,7 +7,7 @@ import { Calendar } from "./modules/calendar/calendar/views/calendar.js";
 import WorkbenchApp from "./components/workbench/App/App.js"
 
 function App() {
-  // WORKBENCH
+  // WORKBENCH  
   return(
     <div className="App">
       <WorkbenchApp></WorkbenchApp>

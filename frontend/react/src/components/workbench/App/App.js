@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+
+import { createContext, useContext } from 'react';
+import AppContext from './AppContext.js';
+import AuthContext from '../Auth/AuthContext.js';
+
 import './WorkbenchApp.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
@@ -27,21 +32,50 @@ import { useAccessToken, useRefreshToken } from './useToken';
 //   }
 // }
 
+function signOutOld() {
+  localStorage.clear();
+  sessionStorage.clear();  
+  //const { accessToken, setAccessToken } = useAccessToken();
+  //setAccessToken(null);
+}
+
+
+//const TestContext = createContext();
 
 function WorkbenchApp() {
   // const [token, setToken] = useState();
   // const token = getToken();
-  
-  const { access_token, setAccessToken } = useAccessToken();
-  const { refresh_token, setRefreshToken } = useRefreshToken();
+
+  //const { accessToken, setAccessToken, refreshToken, setRefreshToken } = useContext(AuthContext);
+  //const authContext = useContext(AuthContext);
+
+  // const [authContext, setAuthContext] = useState({'accessToken': null, 'refreshToken': null})
+  // authContext.setAccessToken = (token) => { authContext.accessToken = token; console.log("SETTING ACCESS TOKEN:\n" + token); }
+
+    
+  const { accessToken, setAccessToken } = useAccessToken();
+  const { refreshToken, setRefreshToken } = useRefreshToken();
+
+  //const [accessToken, setAccessToken] = useState();
+  //const [refreshToken, setRefreshToken] = useState();
+  const authContext = { accessToken, setAccessToken, refreshToken, setRefreshToken };  
 
   // console.log("******************* WORKBENCH TOKEN *******************");
   // console.log(access_token);
 
-  if(!access_token) {
-    return <Authenticate setAccessToken={setAccessToken} setRefreshToken={setRefreshToken} />
+  function signOut() {
+    authContext.setAccessToken(null);
+    authContext.setRefreshToken(null);
   }
 
+  if(!authContext.accessToken) {
+      return (
+	  <AuthContext.Provider value={authContext}>
+	    <Authenticate />
+	  </AuthContext.Provider>
+      )
+  }
+  
   return (
     <div className="wrapper">
       <h1>Application</h1>
@@ -53,6 +87,9 @@ function WorkbenchApp() {
           </Route>
         </Routes>
       </BrowserRouter>
+      <div className="sign-out">  
+        <span onClick={signOut}>Sign-out</span>
+      </div>
     </div>
   );
 }

@@ -23,8 +23,8 @@ export function useAccessToken() {
   };
 
   return {
-    setAccessToken: saveToken,
-    access_token
+    accessToken: access_token,
+    setAccessToken: saveToken
   }
 }
 
@@ -51,7 +51,7 @@ export function useRefreshToken() {
     };
   
     return {
-      setRefreshToken: saveToken,
-      refresh_token
+      refreshToken: refresh_token,
+      setRefreshToken: saveToken
     }
   }

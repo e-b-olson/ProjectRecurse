@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+
+import AuthContext from './AuthContext.js';
 
 import './Authenticate.css';
 
@@ -21,7 +23,8 @@ async function authenticateAccount(credentials, url) {
   .then(data => data.json())
 };
 
-export default function Authenticate({ setAccessToken, setRefreshToken }) {
+//export default function Authenticate({ setAccessToken, setRefreshToken }) {
+export default function Authenticate() {
   const [authType, setAuthType] = useState(AuthType.signIn);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -63,12 +66,14 @@ export default function Authenticate({ setAccessToken, setRefreshToken }) {
 
   // var headline = signInHeadline;
   const [headline, setHeadline] = useState(signInHeadline);
+  const authContext = useContext(AuthContext);  
 
   // var toggleLink = signUpLink;  //<-- this needs to be a state var to update the ui
   const [toggleLink, setToggleLink] = useState(signUpLink);
 
   const handleSubmit = async e => {
     e.preventDefault();
+      
     let authUrl = (authType == AuthType.signIn) ? signInUrl : signUpUrl;
     const response = await authenticateAccount({
         email,
@@ -76,8 +81,8 @@ export default function Authenticate({ setAccessToken, setRefreshToken }) {
         },
         authUrl
     );
-    setAccessToken(response.access_token);
-    setRefreshToken(response.refresh_token);
+    authContext.setAccessToken(response.access_token);
+    authContext.setRefreshToken(response.refresh_token);
   };
 
   return(
@@ -104,7 +109,11 @@ export default function Authenticate({ setAccessToken, setRefreshToken }) {
   )
 }
 
+/*
 Authenticate.propTypes = {
   setAccessToken: PropTypes.func.isRequired,
   setRefreshToken: PropTypes.func.isRequired,
 }
+*/
+
+Authenticate.propTypes = {}
