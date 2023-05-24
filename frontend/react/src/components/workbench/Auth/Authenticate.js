@@ -25,6 +25,8 @@ async function authenticateAccount(credentials, url) {
 
 //export default function Authenticate({ setAccessToken, setRefreshToken }) {
 export default function Authenticate() {
+  const authContext = useContext(AuthContext);
+    
   const [authType, setAuthType] = useState(AuthType.signIn);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -66,7 +68,6 @@ export default function Authenticate() {
 
   // var headline = signInHeadline;
   const [headline, setHeadline] = useState(signInHeadline);
-  const authContext = useContext(AuthContext);  
 
   // var toggleLink = signUpLink;  //<-- this needs to be a state var to update the ui
   const [toggleLink, setToggleLink] = useState(signUpLink);

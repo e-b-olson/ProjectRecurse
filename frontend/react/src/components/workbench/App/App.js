@@ -12,53 +12,17 @@ import Preferences from '../Preferences/Preferences';
 import SignIn from '../SignIn/SignIn.js';
 import Authenticate from '../Auth/Authenticate.js';
 
+import ButtonAppBar from '../Navigation/ButtonAppBar.js';
+
 import { useAccessToken, useRefreshToken } from './useToken';
 
 
-// function setToken(userToken) {
-//   sessionStorage.setItem('token', JSON.stringify(userToken));
-// }
-
-// function getToken() {
-//   const tokenString = sessionStorage.getItem('token');
-//   const userToken = JSON.parse(tokenString);
-//   // return userToken?.token
-
-//   console.log("*******************TOKEN*******************");
-//   console.log(userToken);
-
-//   if (userToken != null) {
-//     return userToken.token;
-//   }
-// }
-
-function signOutOld() {
-  localStorage.clear();
-  sessionStorage.clear();  
-  //const { accessToken, setAccessToken } = useAccessToken();
-  //setAccessToken(null);
-}
-
-
-//const TestContext = createContext();
-
 function WorkbenchApp() {
-  // const [token, setToken] = useState();
-  // const token = getToken();
-
-  //const { accessToken, setAccessToken, refreshToken, setRefreshToken } = useContext(AuthContext);
-  //const authContext = useContext(AuthContext);
-
-  // const [authContext, setAuthContext] = useState({'accessToken': null, 'refreshToken': null})
-  // authContext.setAccessToken = (token) => { authContext.accessToken = token; console.log("SETTING ACCESS TOKEN:\n" + token); }
-
     
   const { accessToken, setAccessToken } = useAccessToken();
   const { refreshToken, setRefreshToken } = useRefreshToken();
 
-  //const [accessToken, setAccessToken] = useState();
-  //const [refreshToken, setRefreshToken] = useState();
-  const authContext = { accessToken, setAccessToken, refreshToken, setRefreshToken };  
+  const authContext = { accessToken, setAccessToken, refreshToken, setRefreshToken };
 
   // console.log("******************* WORKBENCH TOKEN *******************");
   // console.log(accessToken);
@@ -96,18 +60,21 @@ function WorkbenchApp() {
   
   return (
     <div className="wrapper">
+      <AuthContext.Provider value={authContext}>
+      <ButtonAppBar />
       <h1>Application</h1>
       <BrowserRouter>
         <Routes>
-          <Route path="/dashboard" element={<Dashboard />}>
-          </Route>
-          <Route path="/preferences" element={<Preferences />}>
-          </Route>
+            <Route path="/dashboard" element={<Dashboard />}>
+            </Route>
+            <Route path="/preferences" element={<Preferences />}>
+            </Route>
         </Routes>
       </BrowserRouter>
       <div className="sign-out">  
         <span onClick={signOut}>Sign-out</span>
       </div>
+    </AuthContext.Provider>
     </div>
   );
 }
