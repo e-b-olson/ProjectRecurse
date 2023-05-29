@@ -13,6 +13,8 @@ import SignIn from '../SignIn/SignIn.js';
 import Authenticate from '../Auth/Authenticate.js';
 
 import ButtonAppBar from '../Navigation/ButtonAppBar.js';
+import NavigationBar from '../Navigation/NavigationBar.js';
+import MainPagePlaceholder from '../Placeholders/MainPagePlaceholder.js';
 
 import { useAccessToken, useRefreshToken } from './useToken';
 
@@ -26,13 +28,6 @@ function WorkbenchApp() {
 
   // console.log("******************* WORKBENCH TOKEN *******************");
   // console.log(accessToken);
-
-  function signOut() {
-    localStorage.clear();
-    sessionStorage.clear();
-    setAccessToken();
-    setRefreshToken();
-  }
 
   /*
   function isEmpty(value) {
@@ -49,32 +44,23 @@ function WorkbenchApp() {
   }
   */
     
-  if(!accessToken) {
-    return (
-	<AuthContext.Provider value={authContext}>
-	  <Authenticate />
-	</AuthContext.Provider>
-      )
-  }
-
-  
   return (
     <div className="wrapper">
       <AuthContext.Provider value={authContext}>
-      <ButtonAppBar />
-      <h1>Application</h1>
-      <BrowserRouter>
-        <Routes>
+	<BrowserRouter>
+	  <NavigationBar />
+          <Routes>
+	    <Route path="/" element={<MainPagePlaceholder />}>
+	    </Route>
             <Route path="/dashboard" element={<Dashboard />}>
             </Route>
             <Route path="/preferences" element={<Preferences />}>
             </Route>
-        </Routes>
-      </BrowserRouter>
-      <div className="sign-out">  
-        <span onClick={signOut}>Sign-out</span>
-      </div>
-    </AuthContext.Provider>
+	    <Route path="/authenticate" element={<Authenticate />}>
+            </Route>
+          </Routes>
+	</BrowserRouter>
+      </AuthContext.Provider>
     </div>
   );
 }

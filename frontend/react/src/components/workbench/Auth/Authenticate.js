@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import AuthContext from './AuthContext.js';
@@ -85,6 +86,15 @@ export default function Authenticate() {
     authContext.setAccessToken(response.access_token);
     authContext.setRefreshToken(response.refresh_token);
   };
+
+  const navigate = useNavigate();
+  function goHome() {
+    navigate('/');
+  };
+  
+  if (authContext && authContext.accessToken) {
+    goHome();
+  }
 
   return(
     <div className="sign-in-wrapper">
