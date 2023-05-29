@@ -18,6 +18,7 @@ RUN apk add --no-cache --virtual .gyp \
         make \
         g++ \
     && npm install --save-dev webpack@5.82.1 webpack-cli@5.1.1 webpack-dev-server@4.0.0 @webpack-cli/serve@2.0.4 \
+    && npm install --save-dev typescript ts-loader \
     && npm install --save-dev @babel/core@7.1.0 @babel/cli@7.1.0 \
     && npm install --save-dev @babel/preset-env@7.1.0 @babel/preset-react@7.0.0 \
     && npm install --save-dev @babel/plugin-proposal-class-properties \
