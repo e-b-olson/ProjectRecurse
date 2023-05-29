@@ -25,10 +25,15 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader", "source-map-loader"]
+      },
+      {
+	  test: /\.ts?$/,
+	  use: 'ts-loader',
+	  exclude: /node_modules/,
       }
     ]
   },
-  resolve: { extensions: ["*", ".js", ".jsx"] },
+  resolve: { extensions: ["*", ".js", ".jsx", '.ts', '.tsx'] },
   output: {
     path: path.resolve(__dirname, "dist/"),
     publicPath: "/",
