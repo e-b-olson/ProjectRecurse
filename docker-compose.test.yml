@@ -47,6 +47,20 @@ services:
     volumes:
       - ./frontend/react:/home/node/app
 
+  apache2:
+    container_name: apache2-local
+    build:
+      context: ./backend/servers/apache2/
+    restart: always
+    volumes:
+      - ./backend/servers/apache2/conf:/usr/local/apache2/conf
+      - ./backend/servers/apache2/public_html:/var/www/public_html
+      - ./docker_sockets:/var/sockets
+    networks:
+      - local-network
+    ports:
+      - 8000:80
+
   nginx:
     container_name: nginx-test
     build:
