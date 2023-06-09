@@ -1,4 +1,4 @@
-"""SampleJwtProject URL Configuration
+"""ProjectRecurse URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -18,7 +18,7 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # TODO: Change the 'SampleJwtProject.apps' to your *own* project apps
-    path('', include('SampleJwtProject.apps.main.urls')),
-    path('auth/', include('SampleJwtProject.apps.auth.urls')),
+    # TODO: Change the 'ProjectRecurse.apps' to your *own* project apps
+    path('', include('ProjectRecurse.apps.main.urls')),
+    path('auth/', include('ProjectRecurse.apps.auth.urls')),
 ]

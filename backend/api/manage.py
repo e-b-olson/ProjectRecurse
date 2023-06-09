@@ -6,8 +6,8 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    # TODO: Change the 'SampleJwtProject.settings' to your *own* project settings
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'SampleJwtProject.settings')
+    # TODO: Change the 'ProjectRecurse.settings' to your *own* project settings
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ProjectRecurse.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

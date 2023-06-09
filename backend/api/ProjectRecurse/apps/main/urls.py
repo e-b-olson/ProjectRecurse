@@ -2,8 +2,8 @@ from django.urls import path
 
 from . import views
 
-# TODO: Change the 'SampleJwtProject' to your *own* project
-app_name = 'SampleJwtProject'
+# TODO: Change the 'ProjectRecurse' to your *own* project
+app_name = 'ProjectRecurse'
 urlpatterns = [
     path('', views.index),
     path('test/', views.test),

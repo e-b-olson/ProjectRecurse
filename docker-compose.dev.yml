@@ -5,7 +5,7 @@ services:
     container_name: project-recurse-api
     build:
       context: ./backend/api
-    command: gunicorn SampleJwtProject.wsgi:application --bind unix:/var/sockets/SampleJwtProjectApi.sock
+    command: gunicorn ProjectRecurse.wsgi:application --bind unix:/var/sockets/ProjectRecurse.sock
     volumes:
       - ./docker_sockets:/var/sockets
 

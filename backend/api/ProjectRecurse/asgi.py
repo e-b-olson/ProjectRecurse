@@ -1,5 +1,5 @@
 """
-ASGI config for SampleJwtProject project.
+ASGI config for ProjectRecurse project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,7 +11,7 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-# TODO: Change the 'SampleJwtProject.settings' to your *own* project settings
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'SampleJwtProject.settings')
+# TODO: Change the 'ProjectRecurse.settings' to your *own* project settings
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ProjectRecurse.settings')
 
 application = get_asgi_application()

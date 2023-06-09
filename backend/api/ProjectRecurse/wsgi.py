@@ -1,5 +1,5 @@
 """
-WSGI config for SampleJwtProject project.
+WSGI config for ProjectRecurse project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,7 +11,7 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-# TODO: Change the 'SampleJwtProject.settings' to your *own* project settings
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'SampleJwtProject.settings')
+# TODO: Change the 'ProjectRecurse.settings' to your *own* project settings
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ProjectRecurse.settings')
 
 application = get_wsgi_application()

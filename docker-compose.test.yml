@@ -22,7 +22,7 @@ services:
     build:
       context: ./backend/api
     #command: python manage.py runserver 0.0.0.0:8000
-    command: gunicorn SampleJwtProject.wsgi:application --bind unix:/var/sockets/SampleJwtProjectApi.sock
+    command: gunicorn ProjectRecurse.wsgi:application --bind unix:/var/sockets/ProjectRecurseApi.sock
     volumes:
       - ./backend/api:/api
       - ./docker_sockets:/var/sockets
