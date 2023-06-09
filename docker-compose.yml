@@ -26,8 +26,8 @@ services:
       - ./backend/api:/api
     networks:
       - local-network
-    ports:
-      - "8000:8000"
+    #ports:
+    #  - "8000:8000"
     environment:
       # TODO: Change these to match *your* db settings!
       - POSTGRES_NAME=postgres
