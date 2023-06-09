@@ -15,6 +15,7 @@ import Authenticate from '../Auth/Authenticate.js';
 import ButtonAppBar from '../Navigation/ButtonAppBar.js';
 import NavigationBar from '../Navigation/NavigationBar.js';
 import MainPagePlaceholder from '../Placeholders/MainPagePlaceholder.js';
+import UserProfile from '../Profile/UserProfile.js';
 
 import { useAccessToken, useRefreshToken } from './useToken';
 
@@ -57,6 +58,8 @@ function WorkbenchApp() {
             <Route path="/preferences" element={<Preferences />}>
             </Route>
 	    <Route path="/authenticate" element={<Authenticate />}>
+            </Route>
+	    <Route path="/profile" element={<UserProfile />}>
             </Route>
           </Routes>
 	</BrowserRouter>

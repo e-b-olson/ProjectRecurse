@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -20,7 +21,7 @@ import AuthContext from '../Auth/AuthContext.js';
 import ProfileMenuButton from './ProfileMenuButton.js';
 
 const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Account', 'Dashboard', 'Sign out'];
 
 function NavigationBar() {
   const authContext = useContext(AuthContext);
@@ -48,7 +49,12 @@ function NavigationBar() {
       }
     }
   });
-    
+
+  const navigate = useNavigate();
+  function goHome() {
+    navigate('/');
+  };
+  
   function signOut() {
     localStorage.clear();
     sessionStorage.clear();
@@ -86,7 +92,7 @@ function NavigationBar() {
   };
 
   const onUserMenuItemClick = (event, setting) => {
-    if (setting == 'Logout') {
+    if (setting == 'Sign out') {
       signOut();	  
     }
     handleCloseUserMenu();
@@ -95,46 +101,49 @@ function NavigationBar() {
   return (
     <ThemeProvider theme={theme}>
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth='false'>
         <Toolbar disableGutters>
-          <AllInclusive sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            { title }
-          </Typography>
-
-          <AllInclusive sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            { title }
-          </Typography>
+	  {/*<Box display='flex' flexGrow={1}>*/}
+            <AllInclusive sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+	    <AllInclusive sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+	  
+	    <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+		mr: 2,
+		display: { xs: 'none', md: 'flex', lg: 'flex', xl: 'flex' },
+		flexGrow: 1,
+		fontFamily: 'monospace',
+		fontWeight: 700,
+		letterSpacing: '.3rem',
+		color: 'inherit',
+		textDecoration: 'none',
+              }}
+            >
+              { title }
+            </Typography>
+	    <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+		mr: 2,
+		display: { xs: 'flex', md: 'none' },
+		flexGrow: 1,
+		fontFamily: 'monospace',
+		fontWeight: 700,
+		letterSpacing: '.3rem',
+		color: 'inherit',
+		textDecoration: 'none',
+              }}
+            >
+              { title }
+            </Typography>
+	  {/*</Box>*/}
 	  <ProfileMenuButton />
         </Toolbar>
       </Container>

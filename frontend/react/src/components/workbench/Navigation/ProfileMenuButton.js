@@ -15,11 +15,13 @@ import { useContext, useState } from 'react';
 import AuthContext from '../Auth/AuthContext.js';
 
 const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Account', 'Dashboard', 'Sign out'];
 
 function ProfileMenuButton() {
   const authContext = useContext(AuthContext);
   const title = "Project Recurse"
+
+  const username = "Placeholder Name"
     
   const theme = createTheme({
     palette: {
@@ -47,6 +49,10 @@ function ProfileMenuButton() {
   const navigate = useNavigate();
   function goHome() {
     navigate('/');
+  };
+
+  function goToProfile() {
+    navigate('/profile');
   };
   
   function signOut() {
@@ -88,7 +94,15 @@ function ProfileMenuButton() {
   };
 
   const onUserMenuItemClick = (event, setting) => {
-    if (setting == 'Logout') {
+    if (setting == 'Profile') {
+      goToProfile();
+    }
+
+    if (setting == 'Dashboard') {
+      navigate('/dashboard');
+    };  
+    
+    if (setting == 'Sign out') {
       signOut();	  
     }
     handleCloseUserMenu();
@@ -101,35 +115,40 @@ function ProfileMenuButton() {
   }
     
   return (
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-		{settings.map((setting) => (
-                  <MenuItem key={setting} onClick={(event) => onUserMenuItemClick(event, setting)}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+    <Box sx={{ flexGrow: 0 }}>
+      <Tooltip title="Open settings">
+        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+          <Avatar src="/static/images/avatar/2.jpg" />
+        </IconButton>
+      </Tooltip>
+      <Menu
+        sx={{ mt: '45px' }}
+        id="menu-appbar"
+        anchorEl={anchorElUser}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={Boolean(anchorElUser)}
+        onClose={handleCloseUserMenu}
+      >
+	<MenuItem key="Signed in as" style={{whileSpace: 'narmal'}}>
+	  <Typography textAlign="center">Signed in as: </Typography>
+	  <Typography textAlign="center">{ username }</Typography>
+        </MenuItem>
+	
+	{settings.map((setting) => (
+          <MenuItem key={setting} onClick={(event) => onUserMenuItemClick(event, setting)}>
+            <Typography textAlign="center">{setting}</Typography>
+          </MenuItem>
+        ))}
+      </Menu>
+    </Box>
   );
 }
 export default ProfileMenuButton;
