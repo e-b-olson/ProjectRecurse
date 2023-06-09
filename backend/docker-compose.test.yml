@@ -1,19 +1,10 @@
 version: "3.9"
 
 services:
-  test:
-    container_name: test
+  api:
+    container_name: django-postgres-react-api-test
     build:
       context: ./api
-    #command: python manage.py runserver 0.0.0.0:8000
     command: gunicorn SampleJwtProject.wsgi:application --bind unix:/var/sockets/SampleJwtProjectApi.sock
-    #command: gunicorn SampleJwtProject.wsgi --bind 0.0.0.0:8000
     volumes:
       - ./docker_sockets:/var/sockets
-    ports:
-      - "8000:8000"
-    environment:
-      # TODO: Change these to match *your* db settings!
-      - POSTGRES_NAME=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres

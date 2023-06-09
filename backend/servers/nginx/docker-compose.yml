@@ -13,7 +13,7 @@ services:
     networks:
       - local-network
     ports:
-      - 80:80
+      - 8000:80
     environment:
       - NGINX_HOST=localhost
       - NGINX_PORT=80

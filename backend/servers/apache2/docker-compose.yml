@@ -13,7 +13,7 @@ services:
     networks:
       - local-network
     ports:
-      - 80:80
+      - 8000:80
 
 volumes:
   apache2:
