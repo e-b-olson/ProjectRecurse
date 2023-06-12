@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  api:
+    container_name: project-recurse-api
+    build:
+      context: ./backend/api
+    command: gunicorn ProjectRecurse.wsgi:application --bind unix:/var/sockets/ProjectRecurse.sock
+    volumes:
+      - ./backend/api:/api
+      - ./docker_sockets:/var/sockets
+    networks:
+      - local-network
+    ports:
+      - 8000:8000
+
+  apache2:
+    container_name: apache2-local
+    build:
+      context: ./backend/servers/apache2/
+    restart: always
+    volumes:
+      - ./backend/servers/apache2/conf:/usr/local/apache2/conf
+      - ./backend/servers/apache2/public_html:/var/www/public_html
+      - ./docker_sockets:/var/sockets
+    networks:
+      - local-network
+    ports:
+      - 8000:80
+
+  nginx:
+    container_name: nginx-test
+    build:
+      context: ./backend/servers/nginx/
+    restart: always
+    volumes:
+      - ./backend/servers/nginx/conf/nginx.prod.conf:/etc/nginx/nginx.conf
+      - ./frontend/react/public:/var/www/projectrecurse/public_html
+      - ./frontend/react/dist:/var/www/projectrecurse/dist
+      - ./docker_sockets:/var/sockets
+    networks:
+      - local-network
+    ports:
+      - 8001:80
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
+
+
+volumes:
+  db:
+    driver: local
+
+networks:
+  local-network:
+    driver: bridge

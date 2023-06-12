@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: django-postgres-react-db
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    networks:
+      - local-network
+    environment:
+      # TODO: Change these to match *your* db settings!
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  api:
+    container_name: django-postgres-react-api
+    build:
+      context: ./api
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./api:/api
+    networks:
+      - local-network  
+    depends_on:
+      - db
+
+networks:
+  local-network:
+    driver: bridge
