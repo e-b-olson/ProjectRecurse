@@ -52,7 +52,7 @@ function NavigationBar() {
 
   const navigate = useNavigate();
   function goHome() {
-    navigate('/');
+    navigate('/app');
   };
   
   function signOut() {
@@ -111,7 +111,7 @@ function NavigationBar() {
               variant="h6"
               noWrap
               component="a"
-              href="/"
+              href="/app"
               sx={{
 		mr: 2,
 		display: { xs: 'none', md: 'flex', lg: 'flex', xl: 'flex' },
@@ -129,7 +129,7 @@ function NavigationBar() {
               variant="h5"
               noWrap
               component="a"
-              href="/"
+              href="/app"
               sx={{
 		mr: 2,
 		display: { xs: 'flex', md: 'none' },

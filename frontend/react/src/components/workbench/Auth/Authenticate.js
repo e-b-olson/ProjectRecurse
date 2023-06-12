@@ -32,8 +32,8 @@ export default function Authenticate() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const signInUrl = 'http://localhost:8000/auth/sign-in/';
-  const signUpUrl = 'http://localhost:8000/auth/sign-up/';
+  const signInUrl = '/auth/sign-in/';
+  const signUpUrl = '/auth/sign-up/';
 
   const signInHeadline = "Sign In";
   const signUpHeadline = "Create Account";

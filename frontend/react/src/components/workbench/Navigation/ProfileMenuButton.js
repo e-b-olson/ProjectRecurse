@@ -110,7 +110,7 @@ function ProfileMenuButton() {
 
   if (!authContext || !authContext.accessToken) {
     return (
-	<h5><a href="authenticate">SIGN-IN</a></h5>
+	<h5><a href="/app/authenticate">SIGN-IN</a></h5>
     )
   }
     

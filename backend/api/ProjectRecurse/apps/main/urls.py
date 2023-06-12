@@ -8,3 +8,7 @@ urlpatterns = [
     path('', views.index),
     path('test/', views.test),
 ]
+
+urlpatterns += [
+    path('reflect/', views.reflect),
+]

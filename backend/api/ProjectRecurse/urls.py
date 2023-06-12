@@ -22,3 +22,9 @@ urlpatterns = [
     path('', include('ProjectRecurse.apps.main.urls')),
     path('auth/', include('ProjectRecurse.apps.auth.urls')),
 ]
+
+# This is needed to allow gunicorn to serve the django rest framework static files
+# (these files are embedded in this container, making them inaccessible to nginx)
+
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+urlpatterns += staticfiles_urlpatterns()

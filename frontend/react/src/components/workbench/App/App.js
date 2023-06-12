@@ -48,7 +48,7 @@ function WorkbenchApp() {
   return (
     <div className="wrapper">
       <AuthContext.Provider value={authContext}>
-	<BrowserRouter>
+	<BrowserRouter basename="/app">
 	  <NavigationBar />
           <Routes>
 	    <Route path="/" element={<MainPagePlaceholder />}>

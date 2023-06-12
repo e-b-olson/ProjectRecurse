@@ -28,7 +28,7 @@ class SignInAPIView(APIView):
             serializer = AccountSerializer(account)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response({}, status=status.HTTP_400_BAD_REQUEST)
 
 class SignUpAPIView(APIView):
     def post(self, request, format=None):

@@ -7,3 +7,7 @@ def index(request):
 def test(request):
     context = {}
     return render(request, "test.html", context)
+
+def reflect(request):
+    context = {}
+    return render(request, "reflect.html", context)

@@ -1,0 +1,26 @@
+<HTML>
+    <head><title>reflect</title></head>
+    <body>
+      <form action="/reflect/" method="post">
+	{% csrf_token %}
+	<ul>
+	  <li>
+	    <label for="test_input">Test input:</label>
+	    <input type="text" id="test_input" name="test_input" />
+	  </li>
+	  <li class="button">
+	    <button type="submit">Test Post</button>
+	  </li>
+      </form>
+      
+      <h1>Reflected Request</h1>
+      <h4>{{ request.method }}</h4>
+      <h5>{{ request.path }}</h5>
+      {% for key, value in request.POST.items %}
+      <p>
+	{{ key }}
+	{{ value }}
+      </p>
+      {% endfor %}
+    </body>
+</HTML>
