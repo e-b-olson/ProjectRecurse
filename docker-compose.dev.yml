@@ -1,16 +1,37 @@
 version: "3.9"
 
 services:
+
+  #--------------------------------------------------
+  # api - runs the django dev server on port 8000
+  #--------------------------------------------------
+
   api:
-    container_name: project-recurse-api
-    build:
-      context: ./backend/api
-    command: gunicorn ProjectRecurse.wsgi:application --bind unix:/var/sockets/ProjectRecurse.sock
+    extends:
+      file: common-services.yml
+      service: api
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./docker_sockets:/var/sockets
+    ports:
+      - 8000:8000
+
+
+  #--------------------------------------------------
+  # wsgi - runs django via wsgi and gunicorn
+  #        (use this to test via Apache2 or nginx)
+  #--------------------------------------------------
+
+  wsgi:
+    extends:
+      file: common-services.yml
+      service: api
+    command: gunicorn ProjectRecurse.wsgi:application --bind unix:/var/sockets/ProjectRecurse.sock
+    volumes:
+      - ./docker_sockets:/var/sockets  
 
   apache2:
-    container_name: apache2-local
+    container_name: project-recurse-apache2
     build:
       context: ./backend/servers/apache2/
     restart: always
@@ -24,7 +45,7 @@ services:
       - 8000:80
 
   nginx:
-    container_name: nginx-test
+    container_name: project-recurse-nginx
     build:
       context: ./backend/servers/nginx/
     restart: always
@@ -39,6 +60,17 @@ services:
     environment:
       - NGINX_HOST=localhost
       - NGINX_PORT=80
+
+
+  frontend:
+    container_name: project-recurse-frontend
+    build:
+      context: ./frontend/react
+    command: npm run start-dev
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend/react:/home/node/app
 
 
 volumes:

@@ -1,18 +1,21 @@
 version: "3.9"
 
 services:
+
   api:
-    container_name: project-recurse-api
-    build:
-      context: ./backend/api
+    extends:
+      file: common-services.yml
+      service: api
     command: gunicorn ProjectRecurse.wsgi:application --bind unix:/var/sockets/ProjectRecurse.sock
     volumes:
-      - ./backend/api:/api
       - ./docker_sockets:/var/sockets
-    networks:
-      - local-network
-    ports:
-      - 8000:8000
+    environment:
+      # TODO: Change these to match *your* db settings!
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - db
 
   apache2:
     container_name: apache2-local

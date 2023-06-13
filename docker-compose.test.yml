@@ -1,35 +1,14 @@
 version: "3.9"
 
 services:
-  db:
-    container_name: project-recurse-db
-    image: postgres
-    restart: always
-    volumes:
-      - ./backend/db/data:/var/lib/postgresql/data
-    networks:
-      - local-network
-    ports:
-      - 5432:5432
-    environment:
-      # TODO: Change these to match *your* db settings!
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
 
   api:
-    container_name: project-recurse-api
-    build:
-      context: ./backend/api
-    #command: python manage.py runserver 0.0.0.0:8000
-    command: gunicorn ProjectRecurse.wsgi:application --bind unix:/var/sockets/ProjectRecurseApi.sock
+    extends:
+      file: common-services.yml
+      service: api
+    command: gunicorn ProjectRecurse.wsgi:application --bind unix:/var/sockets/ProjectRecurse.sock
     volumes:
-      - ./backend/api:/api
       - ./docker_sockets:/var/sockets
-    networks:
-      - local-network
-    #ports:
-    #  - "8000:8000"
     environment:
       # TODO: Change these to match *your* db settings!
       - POSTGRES_NAME=postgres

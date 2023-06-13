@@ -17,7 +17,12 @@ WORKDIR /home/node
 RUN apk add --no-cache --virtual .gyp \
         make \
         g++ \
-    && npm install --save-dev webpack@5.82.1 webpack-cli@5.1.1 webpack-dev-server@4.0.0 @webpack-cli/serve@2.0.4 \
+    && npm install --save-dev webpack@5.82.1 webpack-cli@5.1.1 \
+    && npm install --save-dev webpack-dev-server@4.0.0 @webpack-cli/serve@2.0.4 \
+    && npm install --save-dev webpack-merge \
+    && npm install --save-dev webpack-hot-middleware@2.25.3 \
+    && npm install --save-dev process \
+    && npm install --save-dev dotenv-webpack@8.0.1 \
     && npm install --save-dev typescript ts-loader \
     && npm install --save-dev @babel/core@7.1.0 @babel/cli@7.1.0 \
     && npm install --save-dev @babel/preset-env@7.1.0 @babel/preset-react@7.0.0 \
@@ -25,7 +30,6 @@ RUN apk add --no-cache --virtual .gyp \
     && npm install --save-dev style-loader@0.23.0 \
     && npm install --save-dev css-loader@6.7.3 babel-loader@8.0.2 \
     && npm install --save-dev react@17.0.0 react-dom@17.0.0 \
-    && npm install --save-dev webpack-hot-middleware@2.25.3 \
     && npm install --save-dev @pmmmwh/react-refresh-webpack-plugin@0.5.10 react-refresh \
     && npm install --save-dev react-router-dom@6.3.0 \
     && npm install --save-dev source-map-loader@1.0.0 \

@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+
+  api:
+    container_name: project-recurse-api
+    build:
+      context: ./backend/api
+    volumes:
+      - ./backend/api:/api
+    networks:
+      - local-network
+
+  nginx:
+    container_name: project-recurse-nginx
+    build:
+      context: ./backend/servers/nginx/
+    restart: always
+    volumes:
+      - ./backend/servers/nginx/conf/nginx.prod.conf:/etc/nginx/nginx.conf
+      - ./frontend/react/public:/var/www/projectrecurse/public_html
+      - ./frontend/react/dist:/var/www/projectrecurse/dist
+      - ./docker_sockets:/var/sockets
+    networks:
+      - local-network
+    ports:
+      - 8000:80
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80

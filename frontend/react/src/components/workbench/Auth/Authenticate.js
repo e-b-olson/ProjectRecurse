@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import AuthContext from './AuthContext.js';
 
 import './Authenticate.css';
+import { POST } from '../../../utils/api.js';
 
 const AuthType = { 
   signIn: "signIn", 
@@ -12,6 +13,8 @@ const AuthType = {
 };
 
 async function authenticateAccount(credentials, url) {
+  return POST(credentials, url);
+  
     return fetch(url, 
       {
         method: 'POST',

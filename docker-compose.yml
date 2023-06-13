@@ -18,16 +18,10 @@ services:
       - POSTGRES_PASSWORD=postgres
 
   api:
-    container_name: project-recurse-api
-    build:
-      context: ./backend/api
+    extends:
+      file: common-services.yml
+      service: api
     command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ./backend/api:/api
-    networks:
-      - local-network
-    #ports:
-    #  - "8000:8000"
     environment:
       # TODO: Change these to match *your* db settings!
       - POSTGRES_NAME=postgres
