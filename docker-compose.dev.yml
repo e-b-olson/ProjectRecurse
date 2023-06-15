@@ -15,6 +15,12 @@ services:
       - ./docker_sockets:/var/sockets
     ports:
       - 8000:8000
+    environment:
+      - DEBUG=True
+      # TODO: Change these to match *your* db settings!
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
 
 
   #--------------------------------------------------
