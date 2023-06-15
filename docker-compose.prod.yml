@@ -2,6 +2,22 @@ version: "3.9"
 
 services:
 
+  db:
+    container_name: project-recurse-db
+    image: postgres
+    restart: always
+    volumes:
+      - ./backend/db/data:/var/lib/postgresql/data
+    networks:
+      - local-network
+    ports:
+      - 5432:5432
+    environment:
+      # TODO: Change these to match *your* db settings!
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
   api:
     extends:
       file: common-services.yml
@@ -23,8 +39,11 @@ services:
       context: ./backend/servers/apache2/
     restart: always
     volumes:
-      - ./backend/servers/apache2/conf:/usr/local/apache2/conf
+      - ./backend/servers/apache2/conf/httpd.prod.conf:/usr/local/apache2/conf/httpd.conf
       - ./backend/servers/apache2/public_html:/var/www/public_html
+      - ./backend/api/ProjectRecurse/static:/var/www/projectrecurse/static
+      - ./frontend/react/dist:/var/www/projectrecurse/dist
+      - ./frontend/react/public:/var/www/projectrecurse/public_html      
       - ./docker_sockets:/var/sockets
     networks:
       - local-network
@@ -32,23 +51,13 @@ services:
       - 8000:80
 
   nginx:
-    container_name: nginx-test
-    build:
-      context: ./backend/servers/nginx/
-    restart: always
+    extends:
+      file: common-services.yml
+      service: nginx
     volumes:
       - ./backend/servers/nginx/conf/nginx.prod.conf:/etc/nginx/nginx.conf
-      - ./frontend/react/public:/var/www/projectrecurse/public_html
-      - ./frontend/react/dist:/var/www/projectrecurse/dist
-      - ./docker_sockets:/var/sockets
-    networks:
-      - local-network
     ports:
       - 8001:80
-    environment:
-      - NGINX_HOST=localhost
-      - NGINX_PORT=80
-
 
 volumes:
   db:
