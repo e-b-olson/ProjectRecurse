@@ -1,0 +1,30 @@
+# Local Supabase for development and integration tests.
+#
+# The Supabase CLI starts the stack (Postgres, Auth, PostgREST, Realtime, Storage,
+# Studio, Inbucket) as containers on your Docker host — not as long-running services
+# defined below. Use the `supabase` service to invoke the CLI with access to the socket.
+#
+# Quick start (from developer/):
+#   ./scripts/supabase-start.sh
+#   ./scripts/supabase-status.sh
+#
+# API:    http://127.0.0.1:54321
+# DB:     postgresql://postgres:postgres@127.0.0.1:54322/postgres
+# Studio: http://127.0.0.1:54323
+# Mail:   http://127.0.0.1:54324 (Inbucket)
+
+name: workbench-supabase
+
+services:
+  supabase:
+    image: supabase/cli:2.98.2
+    working_dir: /workspace
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../app:/workspace:rw
+    environment:
+      DOCKER_HOST: unix:///var/run/docker.sock
+    entrypoint: ["supabase"]
+    # Pass subcommands when running, e.g.:
+    #   docker compose -f docker-compose.supabase.yml run --rm supabase start
+    #   docker compose -f docker-compose.supabase.yml run --rm supabase status

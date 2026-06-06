@@ -1,0 +1,50 @@
+# Next.js dev container. Start local Supabase first (see README.md):
+#   ./scripts/supabase-start.sh
+# Use app/.env.local.docker.example for .env.local when using this compose file.
+
+services:
+  app:
+    container_name: project-recurse-container 
+
+    build:
+      context: ..
+      dockerfile: developer/Dockerfile
+
+    volumes:
+      - ../app:/app
+      - /app/node_modules
+
+    working_dir: /app
+
+    env_file:
+      - ../app/.env.local
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+    command: npm run dev
+
+    ports:
+      - "3000:3000"
+
+  test:
+    build:
+      context: ..
+      dockerfile: developer/Dockerfile
+
+    volumes:
+      - ../app:/app
+      - ../integration-tests
+
+    working_dir: /app
+
+    env_file:
+      - ../app/.env.local
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+    command: npm run dev
+
+    ports:
+      - "3001:3000"
